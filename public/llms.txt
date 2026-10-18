@@ -1,0 +1,59 @@
+# Japan PR Guideline Check
+
+> Free, unofficial checker for Japan's permanent residence guideline (永住許可に関するガイドライン), revised by the Immigration Services Agency (ISA) on 2026-10-01. Given a route and a filing date it applies the guideline version that matches the date, computes when the time-in-Japan requirement is met (old vs revised for spouse/child routes), and checks the objective factors: work-status years, longest period of stay incl. the 3-year transition, absences (6 months / 2.5 years), Japanese B1, school attendance, taxes and insurance; income and pension thresholds are not published. Rules as of 2026-10-18. Educational guide, not immigration or legal advice; never a verdict.
+
+Site: https://japan-pr-check.vercel.app
+
+## Key facts (official sources below)
+- Which guideline applies depends on the date ISA RECEIVES the application (ISA notice 2026-10-01): filed up to 2026-03-31 → 2026-02-24 guideline; filed 2026-04-01 to 2027-03-31 → 2026-02-24 guideline + only the income parts of the revision (2(4)(2) household income above the Japanese average for the household size, 2(5)(7) not a public burden); filed from 2027-04-01 → 2026-10-01 revised guideline in full.
+- Spouse of a Japanese national / PR / SPR: 3+ years of substantive marriage and 1+ year in Japan (filed up to 2027-03-31) → 5+ years of marriage and 3+ years in Japan (from 2027-04-01). Biological / special-adopted child: 1+ year → 3+ years.
+- General route: 10+ years continuous residence with 5+ years on a work or residence status. Technical Intern Training and Specified Skilled Worker (i) never count as work years; from 2027-04-01 also Employment for Skill Development, Intra-company Transferee and some Designated Activities.
+- Longest period of stay: a 3-year period counts up to 2027-03-31; from 2027-04-01 only if held on 2027-03-31, the PR application is the first one filed from 2027-04-01, and the decision comes before that 3-year period expires.
+- Absences (filed from 2027-04-01): in the 10 years before filing, one trip of 6+ months or 2 years 6 months+ abroad in total, without a reasonable reason, is generally assessed negatively. ISA publishes no day-count method (this tool: calendar 6 months; 913 days).
+- New factors from 2027-04-01: Japanese at CEFR B1+ (exempt: HSP and family, 6+ years schooling in Japan, PR's child born in Japan with a B1 parent; method to be announced), understanding of Japan's rules (Living and Working Guidebook), projected pension vs 30 years of Employees' Pension (or assets), school-age children attending school.
+- Income, pension and asset thresholds are NOT published (public-comment answers No. 17, 34). Spouses/children of Japanese/PR and recognized refugees are exempt from the independent-livelihood test.
+- Fee: ¥200,000 for applications received from 2026-10-01 (was ¥10,000), paid only when granted.
+- The separate "contribution to Japan" PR guideline is abolished on 2027-03-31. PR revocation rules (2024 Immigration Act amendment) take effect 2027-04-01.
+
+## API (free, no key, CORS open)
+
+### GET
+GET https://japan-pr-check.vercel.app/api/check?route=spouse&applicationDate=2027-02-15&residenceSince=2025-09-01&marriageDate=2023-06-10&periodOfStay=3y
+→ band "transition", timeRequirement.earliestDate "2026-09-01", filingWindow {oldRuleEarliest 2026-09-01, newRuleEarliest 2028-09-01, oldRuleDeadline 2027-03-31, canUseOldRule true}, summary "need_more_info" (taxes/insurance not given), checks[], keyDates[], fee, sources, disclaimer
+
+### POST
+POST https://japan-pr-check.vercel.app/api/check
+{"route":"general","applicationDate":"2027-06-01","yearsInJapan":11,"workYears":6,"currentStatus":"intra_company_transferee","periodOfStay":"5y","trips":[{"depart":"2020-01-10","return":"2020-07-10"}],"japaneseB1":"yes"}
+→ summary "objective_issue" (a 6-month trip; ICT years flagged for review)
+
+Parameters: route (general | spouse | child | long_term_resident | refugee | hsp70 | hsp80 | special_hsp | contribution | special_zone_regional; required), applicationDate (YYYY-MM-DD, default today JST), residenceSince or yearsInJapan, workYears, marriageDate, qualifyingSince, currentStatus, periodOfStay (5y|3y|1y|6m|3m|unlimited|other), periodExpiry, firstPrApplication, trips (POST array or GET "depart_return,depart_return"), longestTripDays, totalAbsenceDays, japaneseB1, b1Exemption, schoolAgeChildren (none|all_in_school|not_in_school), taxesPaidOnTime, pensionInsurancePaidOnTime.
+summary is one of objective_issue | need_more_info | no_objective_blocker. It is never an approval prediction.
+
+### Other endpoints
+- GET https://japan-pr-check.vercel.app/api/rules (all rules, both versions, sources)
+- https://japan-pr-check.vercel.app/openapi.json
+- https://japan-pr-check.vercel.app/.well-known/ai-plugin.json
+- MCP: tool japan_permanent_residency_check on https://free-agent-tools.vercel.app/mcp
+
+## Sources (official)
+- https://www.moj.go.jp/isa/10_00279.html (Guideline revised 2026-10-01, full text)
+- https://www.moj.go.jp/isa/content/001471577.pdf (Guideline revised 2026-10-01, PDF)
+- https://www.moj.go.jp/isa/applications/procedures/eizyuu_00001.html (ISA PR page: which guideline applies by filing date, 2026-10-01 notice)
+- https://www.moj.go.jp/isa/applications/resources/nyukan_nyukan50.html (Guideline revised 2026-02-24)
+- https://public-comment.e-gov.go.jp/pcm/1040?CLASSNAME=PCM1040&id=315000140&Mode=1 (public-comment results)
+- https://www.moj.go.jp/isa/01_00644.html (fees)
+
+## Disclaimer
+Educational guide, not immigration or legal advice. Permanent residence is discretionary; ISA decides and does not publish its income thresholds. Not affiliated with ISA or the Ministry of Justice.
+
+## Other free tools by the same maker
+- Japan Visa Fee Calculator: https://japan-visa-fee.vercel.app
+- Japan TB Screening Check (JPETS): https://japan-tb-screening.vercel.app
+- Japan Customs Allowance Checker: https://japan-customs-allowance.vercel.app
+- Japan Tax-Free Refund Checker: https://japan-tax-free-refund.vercel.app
+- Japan Luggage Check: https://japan-luggage.vercel.app
+- Kyushu Travel Discount Calculator: https://kyushu-travel-discount.vercel.app
+- Japan Dual Pricing Check: https://japan-dual-pricing.vercel.app
+- Japan Alert Decoder: https://japan-alert-decoder.vercel.app
+- Japan Trip Brain: https://japan-trip-brain.vercel.app
+- Free Agent Tools MCP: https://free-agent-tools.vercel.app

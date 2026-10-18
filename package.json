@@ -1,0 +1,31 @@
+{
+  "name": "japan-pr-check",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Free checker for Japan's permanent residence (\u6c38\u4f4f\u8a31\u53ef) guideline revised 2026-10-01: which version applies to your filing date (2026-04-01 / 2027-04-01), spouse 3+1 \u2192 5+3 years, 3-year visa transition, 6-month / 2.5-year absence rule, B1 Japanese, income and pension factors. Keyless JSON API + MCP.",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "test": "node --import tsx --test lib/pr.test.ts lib/api.test.ts lib/share.test.ts"
+  },
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1",
+    "next": "^16.3.5",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "^16.3.5",
+    "tailwindcss": "^4",
+    "tsx": "^4.23.15",
+    "typescript": "^5"
+  }
+}

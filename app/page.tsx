@@ -4,9 +4,9 @@ import { FaqSection, type FaqItem } from "@/components/faq-section";
 import { RULES, SOURCES } from "@/lib/pr";
 import { EXAMPLE_GENERAL, EXAMPLE_SHARED, PUBLIC_URL, resultPath } from "@/lib/share";
 
-const title = "Japan permanent residency check: 2026 revised PR guideline (spouse 3→5 years, Apr 1 2027 deadline)";
+const title = "Japan PR guideline check: October 2026 permanent residency rules";
 const description =
-  "Free checker for Japan's permanent residence (永住) guideline revised Oct 1, 2026: which rules apply to your filing date, when you meet the time requirement, spouse 3+1 → 5+3 years, 3-year visa transition, 6-month / 2.5-year absence rule, Japanese B1, income and pension factors. Free JSON API for AI agents. Not legal advice.";
+  "Free Japan PR guideline check tool for the permanent residence (永住) guideline revised Oct 1, 2026: which rules apply to your filing date, when you meet the time requirement, spouse 3+1 → 5+3 years, 3-year visa transition, 6-month / 2.5-year absence rule, Japanese B1, income and pension factors. Free JSON API for AI agents. Not legal advice.";
 
 export const metadata: Metadata = {
   title: { absolute: title },
@@ -32,6 +32,10 @@ const webAppLd = {
 };
 
 const faq: FaqItem[] = [
+  {
+    q: "Is there a tool to check which October 2026 PR guideline rules apply to my application?",
+    a: "Yes, this one: a free, unofficial Japan PR guideline check for the permanent residence guideline revised on October 1, 2026. Enter your dates and answers to see which guideline version applies to your filing date, when you meet the time requirement under the old and revised rules, and which factors (absences, Japanese B1, income, pension) are open. The same check is a free keyless JSON API. Permanent residence is discretionary: ISA decides and does not publish its income thresholds.",
+  },
   {
     q: "What changed in Japan's permanent residence guideline on October 1, 2026?",
     a: "The Immigration Services Agency (ISA) published a revised 永住許可に関するガイドライン on October 1, 2026. For applications filed from April 1, 2027 it: raises the spouse route from 3 years of marriage + 1 year in Japan to 5 + 3 years, and the child route from 1 to 3 years; stops counting Intra-company Transferee (and some Designated Activities) years as work years; no longer treats a 3-year period of stay as the longest period (with a narrow transition); weighs a trip abroad of 6 months or more, or 2 years 6 months abroad in total, in the 10 years before filing; adds Japanese at CEFR B1, understanding of Japan's rules, a pension-adequacy check and school attendance of children. The household-income test (above the average Japanese household of the same size) already applies to filings from April 1, 2026.",
@@ -94,7 +98,10 @@ export default function HomePage() {
     <div className="mx-auto w-full max-w-6xl px-4 py-8 sm:py-10">
       <section className="max-w-3xl">
         <p className="font-mono text-[11px] tracking-[0.28em] text-amber uppercase">Free · Japan · 永住 · revised Oct 1 2026</p>
-        <h1 className="mt-3 font-display text-4xl leading-[1.05] tracking-tight sm:text-6xl">Japan permanent residency: which rules apply to you?</h1>
+        <h1 className="mt-3 font-display text-4xl leading-[1.05] tracking-tight sm:text-6xl">Japan PR guideline check (October 2026): which rules apply to you?</h1>
+        <p className="mt-4 max-w-2xl text-base leading-relaxed text-foreground sm:text-lg">
+          Japan&apos;s Immigration Services Agency (ISA) revised the permanent residence (永住) guideline on October 1, 2026, and the date ISA receives your application decides which version applies: before April 1, 2026, the 2026-02-24 guideline; April 1, 2026 to March 31, 2027, that guideline plus the revised income and public-burden rules; from April 1, 2027, the revised guideline in full (for example, spouses of Japanese nationals need 5 years of marriage and 3 years in Japan instead of 3 + 1). This free PR guideline checker applies the version that matches your filing date, shows when you meet the time requirement and which factors are open, and has a keyless JSON API. It cannot tell you whether ISA will grant permanent residence.
+        </p>
         <p className="mt-4 max-w-2xl text-lg font-medium text-foreground sm:text-xl">PR guideline checker for the 2026 revision</p>
         <p className="mt-2 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
           Your filing date decides. Until March 31, 2027 most of the old rules still apply; from April 1, 2027 spouses need 5 + 3 years, intra-company transferee years stop counting, long trips abroad count against you and Japanese B1 becomes a factor. Enter your dates to see the version that applies, when you meet the time requirement, and which factors are open.

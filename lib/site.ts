@@ -22,6 +22,7 @@ export const SIBLING_TOOLS = [
   { href: "https://japan-overseas-dependents.vercel.app", label: "Japan Overseas Dependents Check" },
   { href: "https://japan-parttime-check.vercel.app", label: "Japan Part-time Work Check" },
   { href: "https://japan-driving-check.vercel.app", label: "Japan Driving Check" },
+  { href: "https://house-rules-check.vercel.app", label: "House Rules Check" },
   { href: "https://japan-intl-postage.vercel.app", label: "Japan International Postage 2027" },
   { href: "https://free-agent-tools.vercel.app", label: "Free Agent Tools MCP" },
 ] as const;
